@@ -113,15 +113,15 @@ button, a {
     display: flex;
     align-items: center;
     gap: 10px;
-    color: #e78d2d;
+    color: #cbc4bd;
 }
 
 .availability i {
     width: 7px;
     height: 7px;
-    background: var(--accent);
+    background: #ff9500;
     border-radius: 50%;
-    box-shadow: 0 0 12px var(--accent);
+    box-shadow: 0 0 12px #ff9500;
     animation: pulse 1.8s infinite;
 }
 
