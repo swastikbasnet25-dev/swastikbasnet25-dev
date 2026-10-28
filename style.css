@@ -920,29 +920,6 @@ button, a {
         margin-top: 40px;
     }
 }
-/* INSTAGRAM LINK */
-
-.contactLink {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 22px 0;
-    border-top: 1px solid var(--line);
-    border-bottom: 1px solid var(--line);
-    font: 12px var(--mono);
-    letter-spacing: 1px;
-    transition: color 0.3s;
-}
-
-.contactLink span {
-    color: var(--accent);
-    font-size: 24px;
-}
-
-.contactLink:hover {
-    color: var(--accent);
-}
-
 /* SMALL PHONES */
 
 @media (max-width: 360px) {
