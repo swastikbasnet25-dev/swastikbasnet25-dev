@@ -84,11 +84,11 @@ button, a {
     letter-spacing: -2px;
 }
 
-.logo span {
-    color: var(--accent);
-    font-size: 12px;
-    vertical-align: top;
-    margin-left: 3px;
+.logo img {
+    height: 40px;
+    width: auto;
+    display: block;
+    object-fit: contain;
 }
 
 .availability,
