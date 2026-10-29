@@ -210,3 +210,62 @@ if (contactLink) {
 }
 
 console.log("DESIGN AFTER DARK — Portfolio initialized.");
+
+
+/* 8. CLICK SOUND EFFECTS */
+
+let uiAudioContext;
+
+function playClickSound() {
+    try {
+        if (!uiAudioContext) {
+            uiAudioContext = new (
+                window.AudioContext ||
+                window.webkitAudioContext
+            )();
+        }
+
+        if (uiAudioContext.state === "suspended") {
+            uiAudioContext.resume();
+        }
+
+        const oscillator = uiAudioContext.createOscillator();
+        const gain = uiAudioContext.createGain();
+        const now = uiAudioContext.currentTime;
+
+        oscillator.type = "sine";
+        oscillator.frequency.setValueAtTime(900, now);
+        oscillator.frequency.exponentialRampToValueAtTime(
+            550,
+            now + 0.045
+        );
+
+        gain.gain.setValueAtTime(0.035, now);
+        gain.gain.exponentialRampToValueAtTime(
+            0.001,
+            now + 0.05
+        );
+
+        oscillator.connect(gain);
+        gain.connect(uiAudioContext.destination);
+
+        oscillator.start(now);
+        oscillator.stop(now + 0.05);
+    } catch (error) {
+        // Sound must never interrupt website interactions.
+    }
+}
+
+document.addEventListener("click", event => {
+    const target = event.target;
+
+    if (!(target instanceof Element)) return;
+
+    const clickable = target.closest(
+        "#menuButton, .tool-item, button, a, [role='button']"
+    );
+
+    if (clickable) {
+        playClickSound();
+    }
+});
