@@ -269,3 +269,235 @@ document.addEventListener("click", event => {
         playClickSound();
     }
 });
+/* =========================================
+   9. FLOATING PROJECT LIBRARY
+========================================= */
+
+const projectLibrary = document.getElementById("projectLibrary");
+const libraryStage = document.getElementById("libraryStage");
+const libraryTitle = document.getElementById("libraryTitle");
+const libraryClose = document.getElementById("libraryClose");
+const libraryCounter = document.getElementById("libraryCounter");
+
+/*
+ * Add your project image files to:
+ * assests/projects/
+ *
+ * Replace these filenames with the exact names of your uploaded images.
+ * Until an image exists, its card keeps a dark gradient thumbnail instead
+ * of showing a broken-image icon.
+ */
+
+const projectCollections = {
+    "THE BEAUTIFUL GAME": [
+        { title: "Matchday Visual", image: "./assests/projects/beautiful-game-01.jpg", category: "FOOTBALL GRAPHICS" },
+        { title: "Player Spotlight", image: "./assests/projects/beautiful-game-02.jpg", category: "PLAYER GRAPHIC" },
+        { title: "The Final", image: "./assests/projects/beautiful-game-03.jpg", category: "MATCH CAMPAIGN" },
+        { title: "Club Identity", image: "./assests/projects/beautiful-game-04.jpg", category: "SPORTS DESIGN" },
+        { title: "The Game Never Stops", image: "./assests/projects/beautiful-game-05.jpg", category: "VISUAL STORY" }
+    ],
+
+    "OUT OF BOUNDS": [
+        { title: "Altered Reality", image: "./assests/projects/out-of-bounds-01.jpg", category: "PHOTO MANIPULATION" },
+        { title: "Beyond the Frame", image: "./assests/projects/out-of-bounds-02.jpg", category: "DIGITAL ART" },
+        { title: "Visual Experiment", image: "./assests/projects/out-of-bounds-03.jpg", category: "COMPOSITING" },
+        { title: "Unreal Spaces", image: "./assests/projects/out-of-bounds-04.jpg", category: "EXPERIMENTAL" },
+        { title: "Distorted", image: "./assests/projects/out-of-bounds-05.jpg", category: "DIGITAL ART" }
+    ],
+
+    "IN CONSTANT MOTION": [
+        { title: "Motion Study 01", image: "./assests/projects/motion-01.jpg", category: "MOTION DESIGN" },
+        { title: "Rhythm & Type", image: "./assests/projects/motion-02.jpg", category: "KINETIC TYPE" },
+        { title: "Visual Sequence", image: "./assests/projects/motion-03.jpg", category: "VIDEO EDITING" },
+        { title: "Moving Forms", image: "./assests/projects/motion-04.jpg", category: "MOTION STUDY" },
+        { title: "Frame by Frame", image: "./assests/projects/motion-05.jpg", category: "VISUAL STORY" }
+    ],
+
+    "THE UNKNOWN": [
+        { title: "Untitled 01", image: "./assests/projects/unknown-01.jpg", category: "CREATIVE EXPERIMENT" },
+        { title: "New Perspective", image: "./assests/projects/unknown-02.jpg", category: "PERSONAL WORK" },
+        { title: "Form & Feeling", image: "./assests/projects/unknown-03.jpg", category: "VISUAL EXPLORATION" },
+        { title: "No Rules", image: "./assests/projects/unknown-04.jpg", category: "EXPERIMENTAL" },
+        { title: "Something Different", image: "./assests/projects/unknown-05.jpg", category: "PERSONAL WORK" }
+    ]
+};
+
+let activeCollection = "";
+let selectedProjectIndex = -1;
+let previouslyFocusedElement = null;
+
+function openProjectLibrary(collectionName) {
+    if (!projectLibrary || !libraryStage) return;
+
+    const projects = projectCollections[collectionName];
+    if (!projects) return;
+
+    activeCollection = collectionName;
+    selectedProjectIndex = -1;
+    previouslyFocusedElement = document.activeElement;
+
+    libraryTitle.textContent = collectionName;
+    libraryCounter.textContent =
+        `${String(projects.length).padStart(2, "0")} PROJECTS`;
+
+    libraryStage.classList.remove("has-selection");
+    libraryStage.replaceChildren();
+
+    projects.forEach((project, index) => {
+        const card = document.createElement("button");
+        card.type = "button";
+        card.className = "library-card";
+        card.dataset.slot = String(index);
+        card.setAttribute(
+            "aria-label",
+            `View ${project.title}`
+        );
+
+        const imageFrame = document.createElement("span");
+        imageFrame.className = "library-card-image";
+
+        const image = document.createElement("img");
+        image.src = project.image;
+        image.alt = project.title;
+        image.loading = "lazy";
+
+        image.addEventListener("error", () => {
+            image.remove();
+        }, { once: true });
+
+        imageFrame.appendChild(image);
+
+        const meta = document.createElement("span");
+        meta.className = "library-card-meta";
+
+        const title = document.createElement("span");
+        title.className = "library-card-title";
+        title.textContent = project.title;
+
+        const number = document.createElement("span");
+        number.className = "library-card-number";
+        number.textContent = String(index + 1).padStart(2, "0");
+
+        meta.append(title, number);
+
+        const category = document.createElement("span");
+        category.className = "library-card-category";
+        category.textContent = project.category;
+
+        card.append(imageFrame, meta, category);
+
+        card.addEventListener("click", () => {
+            selectLibraryProject(index);
+        });
+
+        libraryStage.appendChild(card);
+    });
+
+    projectLibrary.classList.add("is-open");
+    projectLibrary.setAttribute("aria-hidden", "false");
+    document.body.classList.add("library-open");
+
+    requestAnimationFrame(() => {
+        libraryClose?.focus();
+    });
+}
+
+function selectLibraryProject(index) {
+    if (!libraryStage) return;
+
+    const cards = [...libraryStage.querySelectorAll(".library-card")];
+    if (!cards[index]) return;
+
+    selectedProjectIndex = index;
+    libraryStage.classList.add("has-selection");
+
+    cards.forEach((card, cardIndex) => {
+        const isSelected = cardIndex === index;
+
+        card.classList.toggle("is-selected", isSelected);
+        card.setAttribute("aria-pressed", String(isSelected));
+        card.tabIndex = isSelected ? 0 : 0;
+    });
+}
+
+function closeProjectLibrary() {
+    if (!projectLibrary) return;
+
+    projectLibrary.classList.remove("is-open");
+    projectLibrary.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("library-open");
+
+    activeCollection = "";
+    selectedProjectIndex = -1;
+
+    if (previouslyFocusedElement instanceof HTMLElement) {
+        previouslyFocusedElement.focus();
+    }
+}
+
+/* Clicking a category opens its five-project library. */
+document.querySelectorAll(".project").forEach(project => {
+    project.setAttribute("tabindex", "0");
+    project.setAttribute("role", "button");
+
+    const heading = project.querySelector(".project-info h3");
+    const collectionName = heading?.textContent.trim();
+
+    if (!collectionName || !projectCollections[collectionName]) return;
+
+    project.setAttribute(
+        "aria-label",
+        `Open ${collectionName} project library`
+    );
+
+    project.addEventListener("click", event => {
+        // Avoid opening the library when selecting text.
+        if (event.target.closest("a")) return;
+
+        openProjectLibrary(collectionName);
+    });
+
+    project.addEventListener("keydown", event => {
+        if (
+            event.target === project &&
+            (event.key === "Enter" || event.key === " ")
+        ) {
+            event.preventDefault();
+            openProjectLibrary(collectionName);
+        }
+    });
+});
+
+libraryClose?.addEventListener("click", closeProjectLibrary);
+
+document.addEventListener("keydown", event => {
+    if (event.key === "Escape" && projectLibrary?.classList.contains("is-open")) {
+        closeProjectLibrary();
+    }
+
+    if (
+        projectLibrary?.classList.contains("is-open") &&
+        event.key === "ArrowRight" &&
+        selectedProjectIndex >= 0
+    ) {
+        selectLibraryProject(
+            (selectedProjectIndex + 1) % projectCollections[activeCollection].length
+        );
+    }
+
+    if (
+        projectLibrary?.classList.contains("is-open") &&
+        event.key === "ArrowLeft" &&
+        selectedProjectIndex >= 0
+    ) {
+        const total = projectCollections[activeCollection].length;
+        selectLibraryProject((selectedProjectIndex - 1 + total) % total);
+    }
+});
+
+/* Clicking the empty space closes the library. */
+projectLibrary?.addEventListener("click", event => {
+    if (event.target === projectLibrary) {
+        closeProjectLibrary();
+    }
+});
