@@ -936,6 +936,129 @@ button, a {
         gap: 8px;
     }
 }
+/* ===== SKILLS ===== */
+
+.skills {
+    padding: 120px 8%;
+}
+
+.skills-list {
+    margin-top: 45px;
+    border-top: 1px solid var(--line);
+}
+
+.skill-item {
+    display: grid;
+    grid-template-columns: 70px 1fr 30px;
+    align-items: center;
+    gap: 24px;
+    padding: 28px 0;
+    border-bottom: 1px solid var(--line);
+    transition: padding 0.3s ease;
+}
+
+.skill-number {
+    font: 11px var(--mono);
+    color: var(--accent);
+}
+
+.skill-content h3 {
+    margin: 0;
+    font: 14px var(--mono);
+    letter-spacing: 1px;
+    transition: color 0.3s ease;
+}
+
+.skill-content p {
+    margin: 10px 0 0;
+    color: #85867d;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.skill-arrow {
+    justify-self: end;
+    color: var(--accent);
+    font-size: 22px;
+    transition: transform 0.3s ease;
+}
+
+.skill-item:hover {
+    padding-left: 8px;
+}
+
+.skill-item:hover .skill-content h3 {
+    color: var(--accent);
+}
+
+.skill-item:hover .skill-arrow {
+    transform: translate(4px, -4px);
+}
+
+.skills-tools {
+    margin-top: 55px;
+}
+
+.tool-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 22px;
+}
+
+.tool-list span {
+    padding: 12px 15px;
+    border: 1px solid var(--line);
+    color: var(--text);
+    font: 10px var(--mono);
+    letter-spacing: 1px;
+    transition: border-color 0.3s ease, color 0.3s ease;
+}
+
+.tool-list span:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+}
+
+/* Responsive layout */
+
+@media (max-width: 600px) {
+    .skills {
+        padding: 80px 8%;
+    }
+
+    .skill-item {
+        grid-template-columns: 42px 1fr 20px;
+        gap: 12px;
+        padding: 24px 0;
+    }
+
+    .skill-content h3 {
+        font-size: 12px;
+        line-height: 1.6;
+    }
+
+    .skill-content p {
+        font-size: 12px;
+    }
+
+    .skill-number {
+        font-size: 10px;
+    }
+
+    .skills-tools {
+        margin-top: 40px;
+    }
+
+    .tool-list {
+        gap: 8px;
+    }
+
+    .tool-list span {
+        padding: 10px 12px;
+        font-size: 9px;
+    }
+}
 
 /* SCROLL REVEAL */
 
