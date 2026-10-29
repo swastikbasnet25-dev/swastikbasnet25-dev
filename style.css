@@ -940,18 +940,44 @@ button, a {
 
 .skills {
     padding: 120px 8%;
+    background: var(--bg);
+}
+
+.skills .section-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 30px;
+    margin-bottom: 55px;
+}
+
+.skills .section-heading h2 {
+    margin: 25px 0 0;
+    font-size: clamp(48px, 7vw, 100px);
+    line-height: 0.95;
+    letter-spacing: -0.08em;
+}
+
+.skills .section-heading h2 span {
+    color: var(--accent);
+}
+
+.skills .work-count {
+    flex-shrink: 0;
+    margin-bottom: 8px;
 }
 
 .skills-list {
-    margin-top: 45px;
+    width: 100%;
     border-top: 1px solid var(--line);
 }
 
 .skill-item {
     display: grid;
-    grid-template-columns: 70px 1fr 30px;
+    grid-template-columns: 70px minmax(0, 1fr) 30px;
     align-items: center;
     gap: 24px;
+    width: 100%;
     padding: 28px 0;
     border-bottom: 1px solid var(--line);
     transition: padding 0.3s ease;
@@ -960,6 +986,10 @@ button, a {
 .skill-number {
     font: 11px var(--mono);
     color: var(--accent);
+}
+
+.skill-content {
+    min-width: 0;
 }
 
 .skill-content h3 {
@@ -1020,15 +1050,29 @@ button, a {
     border-color: var(--accent);
 }
 
-/* Responsive layout */
+/* Mobile layout */
 
 @media (max-width: 600px) {
     .skills {
         padding: 80px 8%;
     }
 
+    .skills .section-heading {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .skills .section-heading h2 {
+        font-size: clamp(42px, 11vw, 65px);
+    }
+
+    .skills .work-count {
+        white-space: normal;
+    }
+
     .skill-item {
-        grid-template-columns: 42px 1fr 20px;
+        grid-template-columns: 42px minmax(0, 1fr) 20px;
         gap: 12px;
         padding: 24px 0;
     }
