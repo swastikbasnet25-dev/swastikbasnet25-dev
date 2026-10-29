@@ -936,26 +936,31 @@ button, a {
         gap: 8px;
     }
 }
-/* ===== SKILLS ===== */
+
+/* ===== SKILLS — ALIGNMENT FIX ===== */
 
 .skills {
-    padding: 120px 8%;
+    padding: 120px 5%;
     background: var(--bg);
+    width: 100%;
+    overflow: hidden;
 }
 
 .skills .section-heading {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    gap: 30px;
-    margin-bottom: 55px;
+    gap: 24px;
+    margin: 0 0 55px;
+    width: 100%;
 }
 
 .skills .section-heading h2 {
-    margin: 25px 0 0;
+    margin: 24px 0 0;
     font-size: clamp(48px, 7vw, 100px);
-    line-height: 0.95;
-    letter-spacing: -0.08em;
+    line-height: 0.9;
+    letter-spacing: -0.09em;
+    min-width: 0;
 }
 
 .skills .section-heading h2 span {
@@ -986,15 +991,17 @@ button, a {
 .skill-number {
     font: 11px var(--mono);
     color: var(--accent);
+    text-align: left;
 }
 
 .skill-content {
     min-width: 0;
+    overflow-wrap: anywhere;
 }
 
 .skill-content h3 {
     margin: 0;
-    font: 14px var(--mono);
+    font: 14px/1.6 var(--mono);
     letter-spacing: 1px;
     transition: color 0.3s ease;
 }
@@ -1008,6 +1015,7 @@ button, a {
 
 .skill-arrow {
     justify-self: end;
+    align-self: center;
     color: var(--accent);
     font-size: 22px;
     transition: transform 0.3s ease;
@@ -1025,19 +1033,32 @@ button, a {
     transform: translate(4px, -4px);
 }
 
+/* TOOLS */
+
 .skills-tools {
+    width: 100%;
     margin-top: 55px;
+}
+
+.skills-tools .section-label {
+    margin: 0;
 }
 
 .tool-list {
     display: flex;
     flex-wrap: wrap;
+    align-items: center;
     gap: 10px;
+    width: 100%;
     margin-top: 22px;
 }
 
 .tool-list span {
-    padding: 12px 15px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 40px;
+    padding: 10px 15px;
     border: 1px solid var(--line);
     color: var(--text);
     font: 10px var(--mono);
@@ -1050,31 +1071,52 @@ button, a {
     border-color: var(--accent);
 }
 
-/* Mobile layout */
+/* TABLETS */
 
-@media (max-width: 600px) {
+@media (max-width: 850px) {
     .skills {
-        padding: 80px 8%;
+        padding: 100px 5%;
+    }
+
+    .skill-item {
+        grid-template-columns: 50px minmax(0, 1fr) 24px;
+        gap: 16px;
+    }
+}
+
+/* PHONES */
+
+@media (max-width: 550px) {
+    .skills {
+        padding: 80px 6%;
     }
 
     .skills .section-heading {
         align-items: flex-start;
         flex-direction: column;
-        gap: 20px;
+        gap: 18px;
+        margin-bottom: 35px;
     }
 
     .skills .section-heading h2 {
+        margin-top: 24px;
         font-size: clamp(42px, 11vw, 65px);
+        line-height: 0.95;
     }
 
     .skills .work-count {
+        margin: 0;
         white-space: normal;
     }
 
     .skill-item {
-        grid-template-columns: 42px minmax(0, 1fr) 20px;
+        grid-template-columns: 32px minmax(0, 1fr) 20px;
         gap: 12px;
         padding: 24px 0;
+    }
+
+    .skill-number {
+        font-size: 10px;
     }
 
     .skill-content h3 {
@@ -1084,10 +1126,11 @@ button, a {
 
     .skill-content p {
         font-size: 12px;
+        line-height: 1.7;
     }
 
-    .skill-number {
-        font-size: 10px;
+    .skill-arrow {
+        font-size: 18px;
     }
 
     .skills-tools {
@@ -1096,11 +1139,32 @@ button, a {
 
     .tool-list {
         gap: 8px;
+        margin-top: 18px;
     }
 
     .tool-list span {
-        padding: 10px 12px;
+        min-height: 36px;
+        padding: 9px 11px;
         font-size: 9px;
+    }
+}
+
+/* VERY SMALL PHONES */
+
+@media (max-width: 360px) {
+    .skill-item {
+        grid-template-columns: 26px minmax(0, 1fr) 18px;
+        gap: 9px;
+    }
+
+    .skill-content h3 {
+        font-size: 11px;
+        letter-spacing: 0.5px;
+    }
+
+    .tool-list span {
+        padding: 8px 9px;
+        font-size: 8px;
     }
 }
 
