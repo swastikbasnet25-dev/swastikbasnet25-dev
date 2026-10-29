@@ -1190,3 +1190,93 @@ button, a {
         transition: none;
     }
 }
+
+/* ===== LOCAL SOFTWARE LOGOS ===== */
+
+.skills .tool-list {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+    width: 100%;
+    margin-top: 24px;
+}
+
+.skills .tool-list .tool-item {
+    box-sizing: border-box;
+    min-width: 0;
+    min-height: 140px;
+    padding: 20px 12px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+
+    border: 1px solid var(--line);
+    background: var(--surface);
+
+    transition:
+        border-color 0.25s ease,
+        background 0.25s ease,
+        transform 0.25s ease;
+}
+
+.skills .tool-list .tool-name {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    min-height: 20px;
+    padding: 0;
+    border: none;
+    background: transparent;
+
+    color: var(--text);
+    font: 10px/1.5 var(--mono);
+    text-align: center;
+    letter-spacing: 0.3px;
+    overflow-wrap: anywhere;
+}
+
+.skills .tool-list .tool-item img {
+    display: block;
+    width: 42px;
+    height: 42px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.skills .tool-list .tool-item:hover {
+    border-color: var(--accent);
+    background: #20221b;
+    transform: translateY(-4px);
+}
+
+.skills .tool-list .tool-item:hover .tool-name {
+    color: var(--accent);
+}
+
+/* Tablet and mobile */
+@media (max-width: 550px) {
+    .skills .tool-list {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 9px;
+    }
+
+    .skills .tool-list .tool-item {
+        min-height: 115px;
+        padding: 14px 5px;
+        gap: 12px;
+    }
+
+    .skills .tool-list .tool-name {
+        font-size: 9px;
+    }
+
+    .skills .tool-list .tool-item img {
+        width: 34px;
+        height: 34px;
+    }
+}
