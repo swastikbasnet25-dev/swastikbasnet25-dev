@@ -110,7 +110,7 @@ if (hero && orb && canUseFinePointer) {
 // 4. SCROLL REVEAL ANIMATIONS
 
 const revealElements = document.querySelectorAll(
-    ".manifesto, .section-heading, .project, .about, .contact"
+    ".manifesto, .section-heading, .project, .about, .contact, .dev-card"
 );
 
 const reducedMotion = window.matchMedia(
