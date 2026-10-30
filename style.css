@@ -2082,3 +2082,687 @@ body.library-open {
         flex-direction: column;
     }
 }
+
+/* =========================================
+   TOOLS & PROGRAMMING CAROUSELS
+========================================= */
+
+.skills-tools {
+    width: 100%;
+    margin-top: 70px;
+}
+
+.skills-tools > .section-label {
+    display: block;
+    margin-bottom: 28px;
+}
+
+.tool-decks {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 28px;
+    align-items: stretch;
+}
+
+/* Individual carousel panels */
+
+.tool-deck {
+    min-width: 0;
+    padding: 24px;
+    overflow: hidden;
+    position: relative;
+    background: var(--surface);
+    border: 1px solid var(--line);
+}
+
+/* Header */
+
+.deck-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    min-height: 58px;
+    margin-bottom: 20px;
+}
+
+.deck-count {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--accent);
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 1.5px;
+}
+
+.deck-heading h3 {
+    margin: 0;
+    color: var(--text);
+    font-size: clamp(17px, 1.7vw, 23px);
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+/* Arrow controls */
+
+.deck-controls {
+    display: flex;
+    flex-shrink: 0;
+    gap: 8px;
+}
+
+.deck-arrow {
+    display: grid;
+    width: 38px;
+    height: 38px;
+    padding: 0;
+    place-items: center;
+    border: 1px solid var(--line);
+    background: transparent;
+    color: var(--text);
+    font-size: 21px;
+    cursor: pointer;
+    transition:
+        color 0.25s ease,
+        background 0.25s ease,
+        border-color 0.25s ease,
+        transform 0.25s ease;
+}
+
+.deck-arrow:hover {
+    color: var(--bg);
+    background: var(--accent);
+    border-color: var(--accent);
+}
+
+.deck-arrow:active {
+    transform: scale(0.92);
+}
+
+.deck-arrow:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 4px;
+}
+
+/* Card stage */
+
+.deck-carousel {
+    position: relative;
+    width: 100%;
+}
+
+.deck-stage {
+    position: relative;
+    width: 100%;
+    height: 320px;
+    perspective: 1000px;
+    isolation: isolate;
+}
+
+/* Cards */
+
+.deck-card {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 76%;
+    height: 100%;
+    padding: 18px;
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+
+    background: var(--bg);
+    border: 1px solid var(--line);
+
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+
+    transform: translateX(-50%) scale(0.82);
+
+    transition:
+        transform 0.45s cubic-bezier(0.2, 0.7, 0.2, 1),
+        opacity 0.45s ease,
+        visibility 0.45s ease,
+        border-color 0.3s ease;
+}
+
+/* Active card */
+
+.deck-card.is-active {
+    z-index: 5;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateX(-50%) scale(1);
+    border-color: var(--accent);
+}
+
+/* Cards to the right */
+
+.deck-card.is-next {
+    z-index: 4;
+    opacity: 0.7;
+    visibility: visible;
+    transform: translateX(15%) scale(0.88);
+}
+
+.deck-card.is-next-two {
+    z-index: 3;
+    opacity: 0.35;
+    visibility: visible;
+    transform: translateX(30%) scale(0.78);
+}
+
+/* Cards to the left */
+
+.deck-card.is-prev {
+    z-index: 4;
+    opacity: 0.7;
+    visibility: visible;
+    transform: translateX(-115%) scale(0.88);
+}
+
+.deck-card.is-prev-two {
+    z-index: 3;
+    opacity: 0.35;
+    visibility: visible;
+    transform: translateX(-130%) scale(0.78);
+}
+
+/* Card top row */
+
+.deck-card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.deck-card-number {
+    color: var(--accent);
+    font-family: var(--mono);
+    font-size: 11px;
+}
+
+.deck-card-type {
+    color: var(--muted);
+    font-family: var(--mono);
+    font-size: 8px;
+    letter-spacing: 1px;
+    text-align: right;
+}
+
+/* Logo area */
+
+.deck-logo {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 22px 0;
+}
+
+.deck-logo img {
+    display: block;
+    width: 92px;
+    height: 92px;
+    max-width: 100%;
+    object-fit: contain;
+
+    transition: transform 0.35s ease;
+}
+
+.deck-card.is-active:hover .deck-logo img {
+    transform: scale(1.08);
+}
+
+/* After Effects text logo */
+
+.deck-text-logo {
+    display: grid;
+    width: 88px;
+    height: 88px;
+    place-items: center;
+
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    background: var(--surface);
+
+    font-size: 40px;
+    font-weight: 700;
+    letter-spacing: -3px;
+}
+
+/* Card descriptions */
+
+.deck-card-info {
+    padding-top: 15px;
+    border-top: 1px solid var(--line);
+}
+
+.deck-card-info h4 {
+    margin: 0 0 8px;
+    color: var(--text);
+    font-size: 19px;
+    font-weight: 600;
+}
+
+.deck-card-info p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.7;
+}
+
+/* Footer */
+
+.deck-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid var(--line);
+
+    color: var(--muted);
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 1px;
+}
+
+.deck-position {
+    flex-shrink: 0;
+    color: var(--accent);
+}
+
+/* =========================================
+   RESPONSIVE DESIGN
+========================================= */
+
+@media (max-width: 1000px) {
+    .tool-decks {
+        gap: 18px;
+    }
+
+    .tool-deck {
+        padding: 18px;
+    }
+
+    .deck-stage {
+        height: 300px;
+    }
+
+    .deck-card {
+        width: 82%;
+        padding: 15px;
+    }
+
+    .deck-logo img {
+        width: 78px;
+        height: 78px;
+    }
+
+    .deck-text-logo {
+        width: 76px;
+        height: 76px;
+        font-size: 35px;
+    }
+}
+
+@media (max-width: 700px) {
+    .skills-tools {
+        margin-top: 50px;
+    }
+
+    .tool-decks {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 24px;
+    }
+
+    .tool-deck {
+        padding: 22px;
+    }
+
+    .deck-heading h3 {
+        font-size: 21px;
+    }
+
+    .deck-stage {
+        height: 330px;
+    }
+
+    .deck-card {
+        width: 72%;
+        padding: 18px;
+    }
+
+    .deck-logo img {
+        width: 90px;
+        height: 90px;
+    }
+
+    .deck-text-logo {
+        width: 84px;
+        height: 84px;
+        font-size: 39px;
+    }
+}
+
+@media (max-width: 420px) {
+    .tool-deck {
+        padding: 15px;
+    }
+
+    .deck-heading h3 {
+        font-size: 18px;
+    }
+
+    .deck-arrow {
+        width: 34px;
+        height: 34px;
+    }
+
+    .deck-stage {
+        height: 300px;
+    }
+
+    .deck-card {
+        width: 78%;
+        padding: 14px;
+    }
+
+    .deck-card-info h4 {
+        font-size: 17px;
+    }
+
+    .deck-card-info p {
+        font-size: 11px;
+    }
+
+    .deck-footer {
+        font-size: 8px;
+    }
+}
+
+/* Respect reduced-motion preferences */
+
+@media (prefers-reduced-motion: reduce) {
+    .deck-card,
+    .deck-arrow,
+    .deck-logo img {
+        transition: none;
+    }
+}
+
+/* =========================================
+   ANIMATION UPGRADE — DESIGN AFTER DARK
+========================================= */
+
+/* 1. CINEMATIC HERO ENTRANCE */
+
+@keyframes hero-rise {
+    from {
+        opacity: 0;
+        transform: translateY(28px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hero .hero-meta {
+    animation: hero-rise 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+.hero .eyebrow {
+    animation: hero-rise 0.8s 0.12s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+.hero .hero-title h1 {
+    animation: hero-rise 1s 0.22s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+.hero .hero-bottom > * {
+    animation: hero-rise 0.8s 0.4s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+/* 2. SMOOTHER HERO INTERACTIONS */
+
+.hero .outline {
+    transition:
+        color 0.45s ease,
+        -webkit-text-stroke-color 0.45s ease;
+}
+
+.discover span {
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+.discover:hover span {
+    transform: translateY(4px);
+}
+
+/* 3. SCROLL REVEAL FOR SKILLS AND TOOL CAROUSELS */
+
+.motion-reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition:
+        opacity 0.75s ease,
+        transform 0.75s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.motion-reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* 4. INTERACTIVE SKILL ROWS */
+
+.skills .skill-item {
+    transition:
+        border-color 0.3s ease,
+        padding-left 0.3s ease,
+        background-color 0.3s ease;
+}
+
+.skills .skill-item:hover {
+    padding-left: 12px;
+    border-color: rgba(200, 255, 0, 0.45);
+}
+
+.skills .skill-arrow {
+    display: inline-block;
+    transition:
+        color 0.3s ease,
+        transform 0.3s ease;
+}
+
+.skills .skill-item:hover .skill-arrow {
+    color: var(--accent);
+    transform: translate(3px, -3px);
+}
+
+/* 5. PREMIUM DEVELOPMENT CARD HOVER */
+
+.dev-card {
+    transition:
+        transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1),
+        border-color 0.35s ease,
+        box-shadow 0.35s ease;
+}
+
+.dev-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.18);
+}
+
+/* Keep development preview motion smooth. */
+
+.dev-preview {
+    overflow: hidden;
+}
+
+.dev-preview::before {
+    transition: transform 0.65s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.dev-card:hover .dev-preview::before {
+    transform: scale(1.04);
+}
+
+/* 6. CAROUSEL CONTROL POLISH */
+
+.deck-arrow {
+    position: relative;
+    overflow: hidden;
+}
+
+.deck-arrow:hover {
+    box-shadow: 0 0 18px rgba(200, 255, 0, 0.12);
+}
+
+.deck-arrow:active {
+    transform: scale(0.92);
+}
+
+/* 7. CLEANER LINK INTERACTIONS */
+
+.dev-link,
+.footer-bottom a,
+.menu-panel a {
+    transition:
+        color 0.25s ease,
+        opacity 0.25s ease;
+}
+
+.dev-link span {
+    display: inline-block;
+    transition: transform 0.25s ease;
+}
+
+.dev-link:hover span {
+    transform: translate(3px, -3px);
+}
+
+/* 8. ACCESSIBILITY: RESPECT REDUCED MOTION */
+
+@media (prefers-reduced-motion: reduce) {
+    .hero .hero-meta,
+    .hero .eyebrow,
+    .hero .hero-title h1,
+    .hero .hero-bottom > * {
+        animation: none !important;
+    }
+
+    .motion-reveal {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+
+    .skills .skill-item,
+    .skills .skill-arrow,
+    .discover span,
+    .dev-card,
+    .dev-preview::before,
+    .deck-arrow,
+    .dev-link span {
+        transition: none !important;
+    }
+
+    .skills .skill-item:hover,
+    .dev-card:hover {
+        transform: none;
+        padding-left: 0;
+        box-shadow: none;
+    }
+}
+
+/* =========================================
+   EXPERIMENTAL SYSTEMS — BINARY MARQUEE
+========================================= */
+
+.dev-lab {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+}
+
+/* Keep the actual section content above the binary layer */
+.dev-lab > * {
+    position: relative;
+    z-index: 1;
+}
+
+/* Animated binary background */
+.dev-lab::before {
+    content:
+        "01001001 00100000 01000011 01001111 01000100 01000101 01010011 01001111 01001101 01000101 01010100 01001000 01001001 01001110 01000111 01010011 01001111 01001101 01000101 01010100 01001000 01001001 01001110 01000111 01010011 01001111 01001101 01000101 01010100 01001000 01001001 01001110 01000111 01010011 01001111 01001101 01000101 01010100 01001000 01001001 01001110 01000111 01010011";
+    position: absolute;
+    z-index: 0;
+    top: 12%;
+    left: 0;
+    width: max-content;
+    white-space: nowrap;
+    overflow: hidden;
+    pointer-events: none;
+
+    color: var(--accent);
+    opacity: 0.10;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 3px;
+    line-height: 2;
+
+    animation: binary-marquee 38s linear infinite;
+}
+
+/* A second, quieter row moving in the opposite direction */
+.dev-lab::after {
+    content:
+        "10110100 01010101 00110101 11001010 01001011 10101010 00101101 10010110 01010101 11001010 00110101 10110100 01001011 00101101 11001010 01010101 10010110 10101010 00110101 01001011 10110100 11001010 00101101 01010101 10010110 00110101 11001010";
+    position: absolute;
+    z-index: 0;
+    top: 65%;
+    left: 0;
+    width: max-content;
+    white-space: nowrap;
+    pointer-events: none;
+
+    color: var(--text);
+    opacity: 0.045;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 4px;
+    line-height: 2;
+
+    animation: binary-marquee-reverse 52s linear infinite;
+}
+
+@keyframes binary-marquee {
+    from { transform: translateX(100vw); }
+    to   { transform: translateX(-100%); }
+}
+
+@keyframes binary-marquee-reverse {
+    from { transform: translateX(-100%); }
+    to   { transform: translateX(100vw); }
+}
+
+/* Pause the movement when the visitor prefers reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .dev-lab::before,
+    .dev-lab::after {
+        animation: none;
+    }
+}

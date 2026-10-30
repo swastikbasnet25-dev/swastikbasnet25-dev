@@ -501,3 +501,128 @@ projectLibrary?.addEventListener("click", event => {
         closeProjectLibrary();
     }
 });
+
+
+/* =========================================
+   TOOLS & PROGRAMMING CARD CAROUSELS
+========================================= */
+
+document.querySelectorAll("[data-deck]").forEach((deck) => {
+    const cards = Array.from(deck.querySelectorAll(".deck-card"));
+    const previousButton = deck.querySelector(".deck-prev");
+    const nextButton = deck.querySelector(".deck-next");
+    const positionDisplay = deck.querySelector(".deck-position");
+
+    // Check that the carousel contains the required elements.
+    if (
+        cards.length === 0 ||
+        !previousButton ||
+        !nextButton
+    ) {
+        return;
+    }
+
+    let activeIndex = 0;
+
+    // Position classes used by the carousel CSS.
+    const positionClasses = [
+        "is-active",
+        "is-next",
+        "is-next-two",
+        "is-prev-two",
+        "is-prev"
+    ];
+
+    function showCard(index) {
+        // Loop continuously through the cards.
+        activeIndex = (index + cards.length) % cards.length;
+
+        cards.forEach((card, cardIndex) => {
+            // Clear previous positions.
+            card.classList.remove(...positionClasses);
+
+            // Calculate this card's position relative to the active card.
+            const offset =
+                (cardIndex - activeIndex + cards.length) % cards.length;
+
+            // Apply its new position.
+            card.classList.add(positionClasses[offset]);
+
+            // Hide inactive cards from assistive technology.
+            card.setAttribute(
+                "aria-hidden",
+                String(cardIndex !== activeIndex)
+            );
+        });
+
+        // Update the position counter.
+        if (positionDisplay) {
+            positionDisplay.textContent =
+                `${String(activeIndex + 1).padStart(2, "0")} / ` +
+                `${String(cards.length).padStart(2, "0")}`;
+        }
+    }
+
+    // Previous arrow.
+    previousButton.addEventListener("click", () => {
+        showCard(activeIndex - 1);
+    });
+
+    // Next arrow.
+    nextButton.addEventListener("click", () => {
+        showCard(activeIndex + 1);
+    });
+
+    // Show the first card when the page loads.
+    showCard(0);
+});
+
+/* =========================================
+   10. ENHANCED SCROLL ANIMATIONS
+========================================= */
+
+(() => {
+    const animatedElements = document.querySelectorAll(
+        ".skills .skill-item, " +
+        ".skills-tools > .section-label, " +
+        ".tool-deck, " +
+        ".dev-footer"
+    );
+
+    const prefersReducedMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+    // Keep everything visible when animations are disabled.
+    if (prefersReducedMotion || !("IntersectionObserver" in window)) {
+        return;
+    }
+
+    // Prepare elements for their entrance animations.
+    animatedElements.forEach((element, index) => {
+        element.classList.add("motion-reveal");
+
+        // Stagger nearby elements for a more polished effect.
+        const delay = (index % 5) * 90;
+        element.style.transitionDelay = `${delay}ms`;
+    });
+
+    const animationObserver = new IntersectionObserver(
+        (entries, observer) => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+
+                entry.target.classList.add("is-visible");
+                observer.unobserve(entry.target);
+            });
+        },
+        {
+            threshold: 0.12,
+            rootMargin: "0px 0px -35px 0px"
+        }
+    );
+
+    animatedElements.forEach(element => {
+        animationObserver.observe(element);
+    });
+})();
