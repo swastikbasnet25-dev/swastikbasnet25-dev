@@ -2,12 +2,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
 
 :root {
-    --bg: #10110f;
-    --surface: #181a17;
+    --bg: #111111;
+    --surface: #000000;
     --text: #f0f0e8;
     --muted: #85877d;
     --accent: #c8ff00;
-    --line: rgba(240, 240, 232, 0.15);
+    --line: rgba(240, 240, 232, 0.18);
     --mono: 'Space Mono', monospace;
     --sans: 'Space Grotesk', sans-serif;
 }
@@ -48,20 +48,6 @@ button {
 button, a {
     -webkit-tap-highlight-color: transparent;
 }
-
-
-
-.noise {
-    position: fixed;
-    inset: 0;
-    z-index: 10;
-    pointer-events: none;
-    opacity: 0.035;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.92' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.8'/%3E%3C/svg%3E");
-}
-
-
-
 .topbar {
     height: 82px;
     padding: 0 5%;
@@ -256,29 +242,54 @@ button, a {
     animation: float 8s ease-in-out infinite;
 }
 
+/* ==================== ORBIT RINGS ==================== */
+
+/* ---- ORBIT BOX: size and position ---- */
 .orbit {
     position: absolute;
-    width: clamp(260px, 36vw, 520px);
+    width: clamp(260px, 36vw, 520px);   /* ring one size */
     aspect-ratio: 1;
-    border: 1px solid rgba(200, 255, 0, 0.22);
-    border-radius: 50%;
-    top: 6%;
-    right: 3%;
+    top: 6%;                            /* move up / down */
+    right: 3%;                          /* move left / right */
     pointer-events: none;
     z-index: 1;
-    transform: rotate(-25deg) scaleY(0.38);
 }
 
-.orbit-one {
-    animation: orbit 20s linear infinite;
-}
-
+/* ---- RING TWO: bigger size ---- */
 .orbit-two {
     width: clamp(310px, 43vw, 620px);
-    border-color: rgba(240, 240, 232, 0.1);
-    transform: rotate(55deg) scaleY(0.4);
-    animation: orbit 30s linear infinite reverse;
 }
+
+/* ---- TRACK: holds the digits ---- */
+.binary-track {
+    position: absolute;
+    inset: 0;
+}
+
+/* ---- DIGITS: size and font ---- */
+.binary-track span {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    font-family: monospace;
+    font-size: 11px;                    /* digit size */
+    font-weight: 400;
+    line-height: 1;
+    white-space: pre;
+}
+
+/* ---- RING ONE: digit color ---- */
+.orbit-one .binary-track span {
+    color: #c8ff00;
+}
+
+/* ---- RING TWO: digit color and fade ---- */
+.orbit-two .binary-track span {
+    color: #f0f0e8;
+    opacity: 0.55;                      /* lower = fainter */
+}
+
+/* ================== END ORBIT RINGS ================== */
 
 .hero-index {
     position: absolute;
@@ -577,30 +588,73 @@ button, a {
     margin-top: 45px;
     margin-bottom: 55px;
 }
-
 .contact h2 span {
     color: #62645a;
 }
 
-#contactLink {
+.contact-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+}
+
+.contact-card {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     align-items: center;
-    padding: 22px 0;
-    border-top: 1px solid var(--line);
-    border-bottom: 1px solid var(--line);
+    gap: 14px;
+    padding: 40px 20px;
+    border: 1px solid var(--line);
+    background: var(--surface);
+    text-align: center;
+    transition:
+        border-color 0.3s ease,
+        transform 0.3s ease;
+}
+
+.contact-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-5px);
+}
+
+.contact-icon {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+}
+
+.contact-card:hover .contact-icon {
+    transform: scale(1.1);
+}
+
+.contact-name {
+    font: 10px var(--mono);
+    letter-spacing: 1.5px;
+    color: var(--muted);
+}
+
+.contact-action {
     font: 12px var(--mono);
     letter-spacing: 1px;
-    transition: color 0.3s;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--accent);
+    transition: color 0.3s ease;
 }
 
-#contactLink span {
+.contact-card:hover .contact-action {
     color: var(--accent);
-    font-size: 24px;
 }
 
-#contactLink:hover {
-    color: var(--accent);
+@media (max-width: 600px) {
+    .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+
+    .contact-card {
+        padding: 30px 20px;
+    }
 }
 
 .footer-bottom {

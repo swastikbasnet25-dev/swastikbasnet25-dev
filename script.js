@@ -604,3 +604,155 @@ document.querySelectorAll("[data-deck]").forEach((deck) => {
         animationObserver.observe(element);
     });
 })();
+
+(() => {
+    const name = "SWASTIK BASNET";
+    const slots = [];
+
+    name.split("").forEach(letter => {
+        const bits = letter
+            .charCodeAt(0)          
+            .toString(2)            
+            .padStart(8, "0");      // always 8 digits
+
+        bits.split("").forEach(bit => slots.push(bit));
+        slots.push(" ");            //gap
+    });
+
+    // ---- RING SETTINGS: tilt and speed ----
+    // tilt  = rotation of the ring in degrees
+    // speed = laps per second (negative = other direction)
+    const orbitSettings = [
+        { selector: ".orbit-one", tilt: -25, speed: 0.04 },
+        { selector: ".orbit-two", tilt: 55, speed: -0.025 }
+    ];
+
+    
+    const flatten = 0.38;
+
+
+    let orbits = [];
+
+
+    function buildOrbits() {
+        orbits = [];
+
+        orbitSettings.forEach(setting => {
+            const orbit = document.querySelector(setting.selector);
+            const track = orbit?.querySelector(".binary-track");
+
+            // Stop if the HTML is missing the orbit or track
+            if (!orbit || !track) return;
+
+            const radiusX = orbit.clientWidth / 2;       
+            const radiusY = radiusX * flatten;           
+            const tilt = (setting.tilt * Math.PI) / 180; 
+
+       
+            const steps = 720;
+            const rawPoints = [];
+            const lengths = [0];
+            let total = 0;
+
+            for (let i = 0; i <= steps; i++) {
+                const angle = (i / steps) * Math.PI * 2;
+
+                rawPoints.push({
+                    x: radiusX * Math.cos(angle),
+                    y: radiusY * Math.sin(angle)
+                });
+
+                if (i > 0) {
+                    const a = rawPoints[i - 1];
+                    const b = rawPoints[i];
+                    total += Math.hypot(b.x - a.x, b.y - a.y);
+                    lengths.push(total);
+                }
+            }
+
+           
+            const evenPoints = [];
+            let j = 0;
+
+            for (let k = 0; k < steps; k++) {
+                const target = (k / steps) * total;
+
+                while (lengths[j + 1] < target) j++;
+
+                const span = lengths[j + 1] - lengths[j];
+                const t = span === 0 ? 0 : (target - lengths[j]) / span;
+
+                const x = rawPoints[j].x + (rawPoints[j + 1].x - rawPoints[j].x) * t;
+                const y = rawPoints[j].y + (rawPoints[j + 1].y - rawPoints[j].y) * t;
+
+                // Tilt the point
+                evenPoints.push({
+                    x: x * Math.cos(tilt) - y * Math.sin(tilt),
+                    y: x * Math.sin(tilt) + y * Math.cos(tilt)
+                });
+            }
+
+          
+            track.replaceChildren();   // clear old digits
+
+            const digits = [];
+
+            slots.forEach((bit, slotIndex) => {
+                if (bit === " ") return;   // skip the gaps
+
+                const element = document.createElement("span");
+                element.textContent = bit;
+                track.appendChild(element);
+
+                digits.push({ element, slotIndex });
+            });
+
+            orbits.push({ digits, evenPoints, speed: setting.speed });
+        });
+    }
+
+  
+    function placeDigits(seconds) {
+        orbits.forEach(orbit => {
+            const offset = seconds * orbit.speed;   // how far the ring has turned
+
+            orbit.digits.forEach(digit => {
+                // Position on the ring: a number from 0 to 1
+                let progress = digit.slotIndex / slots.length + offset;
+                progress = ((progress % 1) + 1) % 1;
+
+                const point =
+                    orbit.evenPoints[Math.floor(progress * orbit.evenPoints.length)];
+
+                digit.element.style.transform =
+                    `translate(-50%, -50%) translate(${point.x}px, ${point.y}px)`;
+            });
+        });
+    }
+
+  
+    const reducedMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+    function animate(time) {
+        placeDigits(time / 1000);          // milliseconds -> seconds
+        requestAnimationFrame(animate);    // run again next frame
+    }
+
+
+    buildOrbits();
+    placeDigits(0);
+
+    // Only animate if the visitor allows motion
+    if (!reducedMotion) {
+        requestAnimationFrame(animate);
+    }
+
+    // Rebuild when the window is resized
+    window.addEventListener("resize", () => {
+        buildOrbits();
+        placeDigits(0);
+    });
+
+})();
