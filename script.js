@@ -1,11 +1,4 @@
 
-/* =========================================
-   DESIGN AFTER DARK — INTERACTIONS
-   Swastik Basnet
-========================================= */
-
-// 1. LIVE KATHMANDU CLOCK
-
 const clock = document.getElementById("clock");
 
 function updateClock() {
@@ -28,7 +21,7 @@ updateClock();
 setInterval(updateClock, 1000);
 
 
-// 2. INTERACTIVE MENU
+
 
 const menuButton = document.getElementById("menuButton");
 const menuPanel = document.getElementById("menuPanel");
@@ -79,7 +72,7 @@ if (menuButton && menuPanel) {
 }
 
 
-// 3. MOUSE-RESPONSIVE ORB
+
 
 const hero = document.querySelector(".hero");
 const orb = document.querySelector(".orb");
@@ -107,7 +100,7 @@ if (hero && orb && canUseFinePointer) {
 }
 
 
-// 4. SCROLL REVEAL ANIMATIONS
+
 
 const revealElements = document.querySelectorAll(
     ".manifesto, .section-heading, .project, .about, .contact, .dev-card"
@@ -146,7 +139,7 @@ if ("IntersectionObserver" in window && !reducedMotion) {
 }
 
 
-// 5. PROJECT CARD INTERACTIONS
+
 
 const projects = document.querySelectorAll(".project");
 
@@ -176,7 +169,7 @@ projects.forEach(project => {
 });
 
 
-// 6. FOOTER YEAR
+
 
 const yearElements = document.querySelectorAll(".footer-bottom");
 
@@ -190,7 +183,7 @@ yearElements.forEach(footer => {
 });
 
 
-// 7. EMAIL LINK REMINDER
+
 
 const contactLink = document.getElementById("contactLink");
 
@@ -212,7 +205,7 @@ if (contactLink) {
 console.log("DESIGN AFTER DARK — Portfolio initialized.");
 
 
-/* 8. CLICK SOUND EFFECTS */
+
 
 let uiAudioContext;
 
@@ -269,24 +262,13 @@ document.addEventListener("click", event => {
         playClickSound();
     }
 });
-/* =========================================
-   9. FLOATING PROJECT LIBRARY
-========================================= */
+
 
 const projectLibrary = document.getElementById("projectLibrary");
 const libraryStage = document.getElementById("libraryStage");
 const libraryTitle = document.getElementById("libraryTitle");
 const libraryClose = document.getElementById("libraryClose");
 const libraryCounter = document.getElementById("libraryCounter");
-
-/*
- * Add your project image files to:
- * assests/projects/
- *
- * Replace these filenames with the exact names of your uploaded images.
- * Until an image exists, its card keeps a dark gradient thumbnail instead
- * of showing a broken-image icon.
- */
 
 const projectCollections = {
     "THE BEAUTIFUL GAME": [
@@ -435,7 +417,7 @@ function closeProjectLibrary() {
     }
 }
 
-/* Clicking a category opens its five-project library. */
+
 document.querySelectorAll(".project").forEach(project => {
     project.setAttribute("tabindex", "0");
     project.setAttribute("role", "button");
@@ -451,7 +433,7 @@ document.querySelectorAll(".project").forEach(project => {
     );
 
     project.addEventListener("click", event => {
-        // Avoid opening the library when selecting text.
+        
         if (event.target.closest("a")) return;
 
         openProjectLibrary(collectionName);
@@ -495,7 +477,7 @@ document.addEventListener("keydown", event => {
     }
 });
 
-/* Clicking the empty space closes the library. */
+
 projectLibrary?.addEventListener("click", event => {
     if (event.target === projectLibrary) {
         closeProjectLibrary();
@@ -503,9 +485,7 @@ projectLibrary?.addEventListener("click", event => {
 });
 
 
-/* =========================================
-   TOOLS & PROGRAMMING CARD CAROUSELS
-========================================= */
+
 
 document.querySelectorAll("[data-deck]").forEach((deck) => {
     const cards = Array.from(deck.querySelectorAll(".deck-card"));
@@ -513,7 +493,7 @@ document.querySelectorAll("[data-deck]").forEach((deck) => {
     const nextButton = deck.querySelector(".deck-next");
     const positionDisplay = deck.querySelector(".deck-position");
 
-    // Check that the carousel contains the required elements.
+    
     if (
         cards.length === 0 ||
         !previousButton ||
@@ -524,7 +504,7 @@ document.querySelectorAll("[data-deck]").forEach((deck) => {
 
     let activeIndex = 0;
 
-    // Position classes used by the carousel CSS.
+
     const positionClasses = [
         "is-active",
         "is-next",
@@ -534,28 +514,28 @@ document.querySelectorAll("[data-deck]").forEach((deck) => {
     ];
 
     function showCard(index) {
-        // Loop continuously through the cards.
+        
         activeIndex = (index + cards.length) % cards.length;
 
         cards.forEach((card, cardIndex) => {
-            // Clear previous positions.
+            
             card.classList.remove(...positionClasses);
 
-            // Calculate this card's position relative to the active card.
+            
             const offset =
                 (cardIndex - activeIndex + cards.length) % cards.length;
 
-            // Apply its new position.
+            
             card.classList.add(positionClasses[offset]);
 
-            // Hide inactive cards from assistive technology.
+           
             card.setAttribute(
                 "aria-hidden",
                 String(cardIndex !== activeIndex)
             );
         });
 
-        // Update the position counter.
+       
         if (positionDisplay) {
             positionDisplay.textContent =
                 `${String(activeIndex + 1).padStart(2, "0")} / ` +
@@ -577,9 +557,7 @@ document.querySelectorAll("[data-deck]").forEach((deck) => {
     showCard(0);
 });
 
-/* =========================================
-   10. ENHANCED SCROLL ANIMATIONS
-========================================= */
+
 
 (() => {
     const animatedElements = document.querySelectorAll(
@@ -593,16 +571,16 @@ document.querySelectorAll("[data-deck]").forEach((deck) => {
         "(prefers-reduced-motion: reduce)"
     ).matches;
 
-    // Keep everything visible when animations are disabled.
+    
     if (prefersReducedMotion || !("IntersectionObserver" in window)) {
         return;
     }
 
-    // Prepare elements for their entrance animations.
+    
     animatedElements.forEach((element, index) => {
         element.classList.add("motion-reveal");
 
-        // Stagger nearby elements for a more polished effect.
+       
         const delay = (index % 5) * 90;
         element.style.transitionDelay = `${delay}ms`;
     });

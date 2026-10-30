@@ -1,9 +1,4 @@
 
-/* =========================================
-   DESIGN AFTER DARK — SWASTIK BASNET
-   Experimental / Digital / Independent
-========================================= */
-
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
 
 :root {
@@ -54,7 +49,7 @@ button, a {
     -webkit-tap-highlight-color: transparent;
 }
 
-/* TEXTURE */
+
 
 .noise {
     position: fixed;
@@ -65,7 +60,7 @@ button, a {
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.92' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.8'/%3E%3C/svg%3E");
 }
 
-/* HEADER */
+
 
 .topbar {
     height: 82px;
@@ -144,7 +139,7 @@ button, a {
     margin-left: 10px;
 }
 
-/* HERO */
+
 
 .hero {
     min-height: 720px;
@@ -242,7 +237,7 @@ button, a {
     color: var(--accent);
 }
 
-/* ORBITAL ART */
+
 
 .orb {
     position: absolute;
@@ -294,7 +289,7 @@ button, a {
     color: #55574e;
 }
 
-/* MANIFESTO */
+
 
 .manifesto {
     padding: 110px 8%;
@@ -321,7 +316,7 @@ button, a {
     display: block;
 }
 
-/* PROJECTS */
+
 
 .work {
     padding: 120px 5%;
@@ -417,7 +412,7 @@ button, a {
     overflow-wrap: anywhere;
 }
 
-/* FOOTBALL POSTER */
+
 
 .art-football {
     color: #f4f1e6;
@@ -438,7 +433,7 @@ button, a {
     text-shadow: 4px 5px 0 rgba(0, 0, 0, 0.25);
 }
 
-/* EXPERIMENTAL POSTER */
+
 
 .art-experiment {
     color: #151515;
@@ -457,7 +452,7 @@ button, a {
     -webkit-text-stroke: 1px #151515;
 }
 
-/* MOTION POSTER */
+
 
 .art-motion {
     color: #fff;
@@ -523,7 +518,7 @@ button, a {
     line-height: 1.8;
 }
 
-/* ABOUT */
+
 
 .about {
     background: var(--accent);
@@ -569,7 +564,7 @@ button, a {
     flex-shrink: 0;
 }
 
-/* CONTACT */
+
 
 .contact {
     padding: 120px 8% 30px;
@@ -624,7 +619,7 @@ button, a {
     color: var(--accent);
 }
 
-/* NAVIGATION OVERLAY */
+
 
 .menu-panel {
     position: fixed;
@@ -2083,9 +2078,7 @@ body.library-open {
     }
 }
 
-/* =========================================
-   TOOLS & PROGRAMMING CAROUSELS
-========================================= */
+
 
 .skills-tools {
     width: 100%;
@@ -2104,7 +2097,7 @@ body.library-open {
     align-items: stretch;
 }
 
-/* Individual carousel panels */
+
 
 .tool-deck {
     min-width: 0;
@@ -2115,7 +2108,7 @@ body.library-open {
     border: 1px solid var(--line);
 }
 
-/* Header */
+
 
 .deck-heading {
     display: flex;
@@ -2143,7 +2136,7 @@ body.library-open {
     line-height: 1.2;
 }
 
-/* Arrow controls */
+
 
 .deck-controls {
     display: flex;
@@ -2184,7 +2177,7 @@ body.library-open {
     outline-offset: 4px;
 }
 
-/* Card stage */
+
 
 .deck-carousel {
     position: relative;
@@ -2199,7 +2192,7 @@ body.library-open {
     isolation: isolate;
 }
 
-/* Cards */
+
 
 .deck-card {
     position: absolute;
@@ -2229,7 +2222,7 @@ body.library-open {
         border-color 0.3s ease;
 }
 
-/* Active card */
+
 
 .deck-card.is-active {
     z-index: 5;
@@ -2240,7 +2233,7 @@ body.library-open {
     border-color: var(--accent);
 }
 
-/* Cards to the right */
+
 
 .deck-card.is-next {
     z-index: 4;
@@ -2256,7 +2249,7 @@ body.library-open {
     transform: translateX(30%) scale(0.78);
 }
 
-/* Cards to the left */
+
 
 .deck-card.is-prev {
     z-index: 4;
@@ -2272,7 +2265,7 @@ body.library-open {
     transform: translateX(-130%) scale(0.78);
 }
 
-/* Card top row */
+
 
 .deck-card-top {
     display: flex;
@@ -2295,7 +2288,7 @@ body.library-open {
     text-align: right;
 }
 
-/* Logo area */
+
 
 .deck-logo {
     flex: 1;
@@ -2320,7 +2313,7 @@ body.library-open {
     transform: scale(1.08);
 }
 
-/* After Effects text logo */
+
 
 .deck-text-logo {
     display: grid;
@@ -2337,7 +2330,7 @@ body.library-open {
     letter-spacing: -3px;
 }
 
-/* Card descriptions */
+
 
 .deck-card-info {
     padding-top: 15px;
@@ -2358,7 +2351,7 @@ body.library-open {
     line-height: 1.7;
 }
 
-/* Footer */
+
 
 .deck-footer {
     display: flex;
@@ -2381,9 +2374,7 @@ body.library-open {
     color: var(--accent);
 }
 
-/* =========================================
-   RESPONSIVE DESIGN
-========================================= */
+
 
 @media (max-width: 1000px) {
     .tool-decks {
@@ -2490,7 +2481,6 @@ body.library-open {
     }
 }
 
-/* Respect reduced-motion preferences */
 
 @media (prefers-reduced-motion: reduce) {
     .deck-card,
@@ -2500,11 +2490,7 @@ body.library-open {
     }
 }
 
-/* =========================================
-   ANIMATION UPGRADE — DESIGN AFTER DARK
-========================================= */
 
-/* 1. CINEMATIC HERO ENTRANCE */
 
 @keyframes hero-rise {
     from {
@@ -2534,8 +2520,6 @@ body.library-open {
     animation: hero-rise 0.8s 0.4s cubic-bezier(0.2, 0.7, 0.2, 1) both;
 }
 
-/* 2. SMOOTHER HERO INTERACTIONS */
-
 .hero .outline {
     transition:
         color 0.45s ease,
@@ -2551,7 +2535,7 @@ body.library-open {
     transform: translateY(4px);
 }
 
-/* 3. SCROLL REVEAL FOR SKILLS AND TOOL CAROUSELS */
+
 
 .motion-reveal {
     opacity: 0;
@@ -2566,7 +2550,7 @@ body.library-open {
     transform: translateY(0);
 }
 
-/* 4. INTERACTIVE SKILL ROWS */
+
 
 .skills .skill-item {
     transition:
@@ -2592,7 +2576,7 @@ body.library-open {
     transform: translate(3px, -3px);
 }
 
-/* 5. PREMIUM DEVELOPMENT CARD HOVER */
+
 
 .dev-card {
     transition:
@@ -2606,7 +2590,7 @@ body.library-open {
     box-shadow: 0 18px 45px rgba(0, 0, 0, 0.18);
 }
 
-/* Keep development preview motion smooth. */
+
 
 .dev-preview {
     overflow: hidden;
@@ -2620,7 +2604,7 @@ body.library-open {
     transform: scale(1.04);
 }
 
-/* 6. CAROUSEL CONTROL POLISH */
+
 
 .deck-arrow {
     position: relative;
@@ -2635,7 +2619,7 @@ body.library-open {
     transform: scale(0.92);
 }
 
-/* 7. CLEANER LINK INTERACTIONS */
+
 
 .dev-link,
 .footer-bottom a,
@@ -2654,7 +2638,7 @@ body.library-open {
     transform: translate(3px, -3px);
 }
 
-/* 8. ACCESSIBILITY: RESPECT REDUCED MOTION */
+
 
 @media (prefers-reduced-motion: reduce) {
     .hero .hero-meta,
@@ -2688,9 +2672,7 @@ body.library-open {
     }
 }
 
-/* =========================================
-   EXPERIMENTAL SYSTEMS — BINARY MARQUEE
-========================================= */
+
 
 .dev-lab {
     position: relative;
@@ -2698,13 +2680,13 @@ body.library-open {
     overflow: hidden;
 }
 
-/* Keep the actual section content above the binary layer */
+
 .dev-lab > * {
     position: relative;
     z-index: 1;
 }
 
-/* Animated binary background */
+
 .dev-lab::before {
     content:
         "01001001 00100000 01000011 01001111 01000100 01000101 01010011 01001111 01001101 01000101 01010100 01001000 01001001 01001110 01000111 01010011 01001111 01001101 01000101 01010100 01001000 01001001 01001110 01000111 01010011 01001111 01001101 01000101 01010100 01001000 01001001 01001110 01000111 01010011 01001111 01001101 01000101 01010100 01001000 01001001 01001110 01000111 01010011";
@@ -2727,7 +2709,7 @@ body.library-open {
     animation: binary-marquee 38s linear infinite;
 }
 
-/* A second, quieter row moving in the opposite direction */
+
 .dev-lab::after {
     content:
         "10110100 01010101 00110101 11001010 01001011 10101010 00101101 10010110 01010101 11001010 00110101 10110100 01001011 00101101 11001010 01010101 10010110 10101010 00110101 01001011 10110100 11001010 00101101 01010101 10010110 00110101 11001010";
@@ -2759,7 +2741,6 @@ body.library-open {
     to   { transform: translateX(100vw); }
 }
 
-/* Pause the movement when the visitor prefers reduced motion */
 @media (prefers-reduced-motion: reduce) {
     .dev-lab::before,
     .dev-lab::after {
