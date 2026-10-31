@@ -70,6 +70,12 @@ if (menuButton && menuPanel) {
         }
     });
 }
+// menu close click empty space
+menuPanel?.addEventListener("click", event => {
+    if (event.target === menuPanel) {
+        closeMenu();
+    }
+});
 
 
 
